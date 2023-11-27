@@ -1,0 +1,13 @@
+.boarding-container {
+  background:url(../public/images/boarding.jpg); /* Check the image path */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  /* Additional styles go here */
+}
+
+
+
+
+
+
