@@ -3,29 +3,29 @@ pipeline {
    
     
     stages { 
-        stage('SCM Checkout') {
+        stage('Get from Github') {
             steps {
                 retry(3) {
-                    git branch: 'main', url: 'https://github.com/HGSChandeepa/test-node'
+                    git branch: 'master', url: 'https://github.com/HasiniPrasadika/BoardingEase_WebApp.git'
                 }
             }
         }
         stage('Build Docker Image') {
             steps {  
-                bat 'docker build -t adomicarts/nodeapp-cuban:%BUILD_NUMBER% .'
+                bat 'docker build -t devopsmadhushani/boarding-ease-app:%BUILD_NUMBER% .'
             }
         }
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'samin-docker', variable: 'samindocker')]) {
-   
-               bat'docker login -u adomicarts -p ${samindocker}'
+                withCredentials([string(credentialsId: 'boarding-ease-password', variable: 'boarding-easepass')]) {
+                    
+                bat'docker login -u devopsmadhushani -p ${boarding-easepass}'
                 }
             }
         }
         stage('Push Image') {
             steps {
-                bat 'docker push adomicarts/nodeapp-cuban:%BUILD_NUMBER%'
+                bat 'docker push devopsmadhushani/boarding-ease-app:%BUILD_NUMBER%'
             }
         }
     }
